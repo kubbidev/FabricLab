@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "fabriclab",
+  "version": "${version}",
+  "name": "FabricLab",
+  "icon": "assets/fabriclab/icon.png",
+  "description": "A Minecraft mod that gather useful features for debugging.",
+  "authors": [
+    "kubbidev"
+  ],
+  "license": "CC BY-NC-SA 4.0",
+  "contact": {
+    "issues": "https://github.com/kubbidev/FabricLab/issues"
+  },
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.kubbidev.fabriclab.FabricLabMod"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "fabriclab.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "minecraft": "~1.21.8"
+  }
+}
