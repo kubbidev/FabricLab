@@ -3,7 +3,8 @@
   "package": "me.kubbidev.fabriclab.mixins",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "EntityRendererMixin"
+    "EntityRendererMixin",
+    "render.DebugRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
