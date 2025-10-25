@@ -4,9 +4,9 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 apply("gradle/ver.gradle.kts")
 plugins {
     id("java")
-    id("maven-publish")
-    alias(libs.plugins.shadow)
     alias(libs.plugins.loom)
+    alias(libs.plugins.shadow)
+    id("maven-publish")
 }
 
 group = "me.kubbidev"
@@ -25,9 +25,9 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.21.8")
-    mappings("net.fabricmc:yarn:1.21.8+build.1:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.16.14")
+    minecraft("com.mojang:minecraft:1.21.10")
+    mappings("net.fabricmc:yarn:1.21.10+build.2:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.17.3")
 
     val apiModules = listOf(
         "fabric-api-base",
@@ -35,17 +35,14 @@ dependencies {
     )
 
     apiModules.forEach {
-        modImplementation(fabricApi.module(it, "0.129.0+1.21.8"))
+        modImplementation(fabricApi.module(it, "0.136.0+1.21.10"))
     }
 
     // Unit tests
-    testImplementation("org.testcontainers:junit-jupiter:1.20.4")
-    testImplementation("org.mockito:mockito-core:5.14.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.14.2")
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.11.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.4")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.0")
 }
 
 tasks.withType<JavaCompile> {
@@ -53,13 +50,13 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.processResources {
-    inputs.property("version", "$version")
-    filesMatching("**/fabric.mod.json") {
-        expand("version" to "$version")
+    filesMatching("fabric.mod.json") {
+        expand("modVersion" to "$version")
     }
 }
 
 tasks.shadowJar {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
     archiveFileName = "fabriclab-$version-dev.jar"
     mergeServiceFiles()
     dependencies {
@@ -79,10 +76,6 @@ val remappedShadowJar by tasks.registering(RemapJarTask::class) {
     }
     addNestedDependencies = true
     archiveFileName = "FabricLab-Fabric-$version.jar"
-}
-
-tasks.assemble {
-    dependsOn(remappedShadowJar)
 }
 
 tasks.publish {
@@ -107,9 +100,8 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-artifacts {
-    archives(tasks.shadowJar)
-    archives(remappedShadowJar)
+tasks.assemble {
+    dependsOn(remappedShadowJar)
 }
 
 publishing {
@@ -133,7 +125,7 @@ publishing {
                 developers {
                     developer {
                         id = "kubbidev"
-                        name = "kubbi"
+                        name = "Kubbi"
                         url = "https://kubbidev.me"
                     }
                 }
@@ -146,7 +138,7 @@ publishing {
         }
     }
     repositories {
-        maven(url = "https://nexus.kubbidev.me/repository/maven-releases/") {
+        maven("https://nexus.kubbidev.me/repository/maven-releases/") {
             name = "kubbidev-releases"
             credentials(PasswordCredentials::class) {
                 username = System.getenv("GRADLE_KUBBIDEV_RELEASES_USER") ?: property("kubbidev-releases-user") as String?

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "fabriclab",
-  "version": "${version}",
+  "version": "${modVersion}",
   "name": "FabricLab",
   "icon": "assets/fabriclab/icon.png",
   "description": "A Minecraft mod that gather useful features for debugging.",
@@ -14,9 +14,6 @@
   },
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "me.kubbidev.fabriclab.FabricLabMod"
-    ]
   },
   "mixins": [
     {
@@ -25,6 +22,6 @@
     }
   ],
   "depends": {
-    "minecraft": "~1.21.8"
+    "minecraft": "~1.21.10"
   }
 }
