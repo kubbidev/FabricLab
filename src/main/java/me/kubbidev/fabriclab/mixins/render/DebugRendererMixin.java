@@ -14,6 +14,6 @@ public class DebugRendererMixin {
     @Inject(method = "initRenderers()V", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        ((DebugRendererAccessor) this).fabriclab$getDebugRenderers().add(new EntityDebugRenderer(minecraftClient));
+        ((DebugRendererAccessor) this).fabriclab$getRenderers().add(new EntityDebugRenderer(minecraftClient));
     }
 }

@@ -16,7 +16,7 @@ base {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     withSourcesJar()
 }
 
@@ -25,9 +25,9 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.21.10")
-    mappings("net.fabricmc:yarn:1.21.10+build.2:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.17.3")
+    minecraft("com.mojang:minecraft:1.21.11")
+    mappings("net.fabricmc:yarn:1.21.11+build.5:v2")
+    modImplementation("net.fabricmc:fabric-loader:0.19.2")
 
     val apiModules = listOf(
         "fabric-api-base",
@@ -35,7 +35,7 @@ dependencies {
     )
 
     apiModules.forEach {
-        modImplementation(fabricApi.module(it, "0.136.0+1.21.10"))
+        modImplementation(fabricApi.module(it, "0.141.3+1.21.11"))
     }
 
     // Unit tests

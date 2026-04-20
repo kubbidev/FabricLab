@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(DebugRenderer.class)
 public interface DebugRendererAccessor {
 
-    @Accessor("debugRenderers")
-    List<Renderer> fabriclab$getDebugRenderers();
+    @Accessor("renderers")
+    List<Renderer> fabriclab$getRenderers();
 }
