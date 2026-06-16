@@ -150,8 +150,10 @@ public class EntityDebugRenderer implements DebugRenderer.Renderer {
         Collection<StatusEffectInstance> statusEffects = livingEntity.getStatusEffects();
         drawString(livingEntity, line.getAndIncrement(), "Effects : (" + statusEffects.size() + ")");
         for (StatusEffectInstance statusEffectInstance : statusEffects) {
-            drawString(livingEntity, line.getAndIncrement(),
-                " - a=" + statusEffectInstance.getAmplifier() + ", d=" + statusEffectInstance.getDuration());
+            drawString(livingEntity, line.getAndIncrement(), " - "
+                + statusEffectInstance.getEffectType().getIdAsString() + " lvl="
+                + statusEffectInstance.getAmplifier() + ", tick="
+                + statusEffectInstance.getDuration());
         }
     }
 
